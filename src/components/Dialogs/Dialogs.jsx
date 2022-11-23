@@ -1,9 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  sendMessageActionCreator,
-  updateNewMessageActionCreator,
-} from '../../redux/dialogsReducer';
+
 import style from './Dialogs.module.css';
 
 const Dialog = (props) => {
@@ -22,7 +19,6 @@ const Dialogs = (props) => {
   const dialogElements = state.dialogData.map((d) => (
     <Dialog name={d.name} id={d.id} />
   ));
-
   let messageElements = state.messageData.map((m) => (
     <Message message={m.message} id={m.id} />
   ));
