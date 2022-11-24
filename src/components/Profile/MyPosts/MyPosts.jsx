@@ -3,20 +3,32 @@ import style from './MyPosts.module.css';
 import Post from './Post/Post';
 
 function MyPosts(props) {
-  let postElements = props.postData.map((p) => (
-    <Post message={p.message} likeCount={p.likeCount} />
-  ));
+  const newPost = React.useRef();
 
-  let newPost = React.useRef();
-
-  let onAddNewPost = () => {
-    props.addNewPost();
+  const onAddNewPost = () => {
+    //props.addNewPost();
   };
 
-  let onPostChange = () => {
+  const onPostChange = () => {
     let text = newPost.current.value;
     props.updateNewPostText(text);
   };
+
+  const onLikeChange = (id) => {
+    console.log(id);
+    props.increseLike(id);
+  };
+
+  const postElements = props.postData.map((post) => (
+    <Post
+      key={post.id}
+      message={post.message}
+      likes={post.likes}
+      onLikeChange={onLikeChange}
+      id={post.id}
+    />
+  ));
+
   return (
     <div>
       <div className={style.postsBclock}>

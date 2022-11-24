@@ -4,9 +4,10 @@ let initialState = {
       message: 'Today I learned something new',
       id: '1',
       likeCount: '15 likes',
+      likes: 0,
     },
-    { message: 'Hey, How are you?', id: '2', likeCount: '19 likes' },
-    { message: 'Very happy', id: '3', likeCount: '12 likes' },
+    { message: 'Hey, How are you?', id: '2', likeCount: '19 likes', likes: 0 },
+    { message: 'Very happy', id: '3', likeCount: '12 likes', likes: 0 },
   ],
   newPostText: '',
 };
@@ -42,6 +43,21 @@ const profileReducer = (state = initialState, action) => {
       stateCopy.newPostText = action.newText;
       return stateCopy;
     }
+    case 'INCRESE-LIKE-BY-ID': {
+      console.log();
+      console.log(action);
+      console.log(
+        state.postData.map((post) =>
+          post.id === action.payload ? { ...post, likes: post.likes + 1 } : post
+        )
+      );
+      return {
+        ...state,
+        postData: state.postData.map((post) =>
+          post.id === action.payload ? { ...post, likes: post.likes + 1 } : post
+        ),
+      };
+    }
     default:
       return state;
   }
@@ -51,5 +67,9 @@ export const addNewPostActionCreator = () => ({ type: 'ADD-NEW-POST-TEXT' });
 export const updateNewPostTextActionCreator = (text) => {
   return { type: 'UPDATE-NEW-POST-TEXT', newText: text };
 };
+export const increseLikeByIdActionCreator = (id) => ({
+  type: 'INCRESE-LIKE-BY-ID',
+  payload: id,
+});
 
 export default profileReducer;
