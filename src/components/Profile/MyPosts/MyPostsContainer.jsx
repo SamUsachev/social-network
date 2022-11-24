@@ -3,6 +3,7 @@ import MyPosts from './MyPosts';
 import {
   addNewPostActionCreator,
   updateNewPostTextActionCreator,
+  increseLikeByIdActionCreator,
 } from '../../../redux/profileReducer';
 import { connect } from 'react-redux';
 
@@ -19,6 +20,10 @@ const mapDispatchToProps = (dispatch) => {
     updateNewPostText: (text) => {
       let action = updateNewPostTextActionCreator(text);
       dispatch(action);
+    },
+    increseLike: (id) => {
+      console.log(id);
+      dispatch(increseLikeByIdActionCreator(id));
     },
   };
 };
