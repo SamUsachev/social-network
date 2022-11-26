@@ -6,7 +6,7 @@ function MyPosts(props) {
   const newPost = React.useRef();
 
   const onAddNewPost = () => {
-    //props.addNewPost();
+    props.addNewPost();
   };
 
   const onPostChange = () => {

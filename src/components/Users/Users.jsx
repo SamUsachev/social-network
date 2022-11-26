@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './users.module.css';
 import userPhoto from './../assets/images/user.png';
 
@@ -11,6 +11,7 @@ const Users = (props) => {
         props.setUsers(response.data.items);
       });
   }
+
   return (
     <div>
       {props.users.map((u) => (
