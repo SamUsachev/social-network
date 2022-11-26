@@ -6,6 +6,7 @@ import Profile from './components/Profile/Profile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
+import { NewsFeed, NewsFeedFunc } from './pages';
 
 function App(props) {
   return (
@@ -19,6 +20,8 @@ function App(props) {
               <Route path="/profile" element={<Profile />} />
               <Route path="/messages" element={<DialogsContainer />} />
               <Route path="/users" element={<UsersContainer />} />
+              {/* <Route path="/news" element={<NewsFeed />} />
+              <Route path="/newsFunc" element={<NewsFeedFunc />} /> */}
             </Routes>
           </div>
         </div>
