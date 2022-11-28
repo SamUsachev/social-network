@@ -1,19 +1,45 @@
-import axios from 'axios';
-import React, { useEffect } from 'react';
-import styles from './users.module.css';
+import React from 'react';
 import userPhoto from './../assets/images/user.png';
+import styles from './users.module.css';
 
 const Users = (props) => {
-  if (props.users.length === 0) {
-    axios
-      .get('https://social-network.samuraijs.com/api/1.0/users')
-      .then((response) => {
-        props.setUsers(response.data.items);
-      });
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  let pages = [];
+  for (let i = 1; i <= pagesCount; i++) {
+    pages.push(i);
   }
+
+  // let curPage = this.props.currentPage;
+  // let curPageFirst = curPage - 5 < 0 ? 0 : curPage - 5;
+  // let curPageLast = curPage + 5;
+  // let slicedPages = pages.slice(curPageFirst, curPageLast);
+
+  // let newPages;
+  // if (this.props.currentPage <= 5) {
+  //   newPages = pages.slice(0, 10);
+  // } else {
+  //   newPages = pages.slice(
+  //     this.props.currentPage - 5,
+  //     this.props.currentPage + 5
+  //   );
+  // }
 
   return (
     <div>
+      <div>
+        {pages.map((page) => {
+          return (
+            <span
+              className={props.currentPage === page && styles.selectedPage}
+              onClick={() => {
+                props.onPageChanged(page);
+              }}
+            >
+              {page}
+            </span>
+          );
+        })}
+      </div>
       {props.users.map((u) => (
         <div key={u.id}>
           <span>
@@ -45,7 +71,7 @@ const Users = (props) => {
           </span>
           <span>
             <span>
-              <div>{u.fullName} </div>
+              <div>{u.name} </div>
               <div>{u.status}</div>
             </span>
             <span>
@@ -58,5 +84,6 @@ const Users = (props) => {
     </div>
   );
 };
+debugger;
 
 export default Users;
