@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import { NewsFeed, NewsFeedFunc } from './pages';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 function App(props) {
   return (
@@ -17,7 +18,7 @@ function App(props) {
           <NavBar />
           <div className="App-content">
             <Routes>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile:userId" element={<ProfileContainer />} />
               <Route path="/messages" element={<DialogsContainer />} />
               <Route path="/users" element={<UsersContainer />} />
               {/* <Route path="/news" element={<NewsFeed />} />
