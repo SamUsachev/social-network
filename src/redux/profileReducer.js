@@ -1,3 +1,5 @@
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+
 let initialState = {
   postData: [
     {
@@ -10,6 +12,7 @@ let initialState = {
     { message: 'Very happy', id: '3', likeCount: '12 likes', likes: 0 },
   ],
   newPostText: '',
+  profile: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -32,7 +35,7 @@ const profileReducer = (state = initialState, action) => {
       let newPost = {
         message: state.newPostText,
         id: 4,
-        likeCount: 0,
+        likes: 0,
       };
       stateCopy.postData = [...state.postData];
       stateCopy.postData.push(newPost);
@@ -58,6 +61,9 @@ const profileReducer = (state = initialState, action) => {
         ),
       };
     }
+    case SET_USER_PROFILE: {
+      return { ...state, profile: action.profile };
+    }
     default:
       return state;
   }
@@ -71,5 +77,9 @@ export const increseLikeByIdActionCreator = (id) => ({
   type: 'INCRESE-LIKE-BY-ID',
   payload: id,
 });
+
+export const setUserProfileActionCreator = (profile) => {
+  return { type: SET_USER_PROFILE, profile };
+};
 
 export default profileReducer;
