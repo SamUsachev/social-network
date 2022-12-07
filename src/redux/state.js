@@ -45,6 +45,4 @@ let store = {
   },
 };
 
-window.storage = storage;
-
 export default store;
