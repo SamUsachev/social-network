@@ -3,7 +3,6 @@ import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 import { NavLink } from 'react-router-dom';
 import style from './Header.module.css';
 const Header = (props) => {
-  debugger;
   return (
     <header className={style.header}>
       <img
