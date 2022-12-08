@@ -9,8 +9,8 @@ let initialState = {
   users: [],
   pageSize: 5,
   totalUsersCount: 150,
-  currentPage: 2,
-  followProgress: false,
+  currentPage: 1,
+  followProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -54,7 +54,9 @@ const usersReducer = (state = initialState, action) => {
     case FOLLOW_PROGRESS:
       return {
         ...state,
-        followProgress: action.followProgress,
+        followProgress: action.followProgress
+          ? [...state.followProgress, action.userId]
+          : state.followProgress.filter((id) => id != action.userId),
       };
 
     default:
@@ -69,9 +71,10 @@ export const setCurrentPageActionCreator = (currentPage) => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
-export const followProgressActionCreator = (followProgress) => ({
+export const followProgressActionCreator = (followProgress, userId) => ({
   type: FOLLOW_PROGRESS,
   followProgress,
+  userId,
 });
 // export const setTotalUsersCountActionCreator = (totalUsersCount) => ({
 //   type: SET_TOTAL_USERS_COUNT,
