@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api';
+
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState = {
@@ -78,8 +80,16 @@ export const increseLikeByIdActionCreator = (id) => ({
   payload: id,
 });
 
-export const setUserProfileActionCreator = (profile) => {
+export const setUserProfile = (profile) => {
   return { type: SET_USER_PROFILE, profile };
 };
+export const getUserProfile = (userId) => (dispatch) => {
+  usersAPI
+    .getProfile(userId)
 
+    .then((response) => {
+      dispatch(setUserProfile(response.data));
+      // this.props.setTotalUsersCount(response.data.totalCount);
+    });
+};
 export default profileReducer;
