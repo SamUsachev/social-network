@@ -1,9 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Profile from './Profile';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { setUserProfileActionCreator } from '../../redux/profileReducer';
+import { getUserProfile } from '../../redux/profileReducer';
 
 const withRouter = (Component) => {
   const ComponentWithRouterProp = (props) => {
@@ -15,13 +14,7 @@ const withRouter = (Component) => {
 class ProfileContainer extends React.Component {
   componentDidMount() {
     const userId = this.props.router.params.userId;
-    debugger;
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response) => {
-        this.props.setUserProfile(response.data);
-        // this.props.setTotalUsersCount(response.data.totalCount);
-      });
+    this.props.getUserProfile(userId);
   }
 
   render() {
@@ -36,15 +29,7 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = (state) => ({
   profile: state.postsPage.profile,
 });
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserProfile: (profile) => {
-      dispatch(setUserProfileActionCreator(profile));
-    },
-  };
-};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(ProfileContainer));
+export default connect(mapStateToProps, { getUserProfile })(
+  withRouter(ProfileContainer)
+);

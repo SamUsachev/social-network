@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -64,14 +66,14 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followActionCreator = (userId) => ({ type: FOLLOW, userId });
-export const unFollowActionCreator = (userId) => ({ type: UNFOLLOW, userId });
-export const setUsersActionCreator = (users) => ({ type: SET_USERS, users });
-export const setCurrentPageActionCreator = (currentPage) => ({
+export const followSuccess = (userId) => ({ type: FOLLOW, userId });
+export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentPage) => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
-export const followProgressActionCreator = (followProgress, userId) => ({
+export const setFollowProgress = (followProgress, userId) => ({
   type: FOLLOW_PROGRESS,
   followProgress,
   userId,
@@ -80,5 +82,44 @@ export const followProgressActionCreator = (followProgress, userId) => ({
 //   type: SET_TOTAL_USERS_COUNT,
 //   count: totalUsersCount,
 // });
+
+export const getUsers = (currentPage, pageSize) => {
+  return (dispatch) => {
+    usersAPI.getUsers(currentPage, pageSize).then((response) => {
+      dispatch(setUsers(response.data.items));
+      // this.props.setTotalUsersCount(response.data.totalCount);
+    });
+  };
+};
+
+export const follow = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowProgress(true, userId));
+    usersAPI
+      .follow(userId)
+
+      .then((response) => {
+        dispatch(setFollowProgress(false, userId));
+        if (response.data.resultCode == 0) {
+          dispatch(followSuccess(userId));
+        }
+      });
+  };
+};
+
+export const unfollow = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowProgress(true, userId));
+    usersAPI
+      .unfollow(userId)
+
+      .then((response) => {
+        dispatch(setFollowProgress(false, userId));
+        if (response.data.resultCode == 0) {
+          dispatch(unfollowSuccess(userId));
+        }
+      });
+  };
+};
 
 export default usersReducer;

@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { usersAPI } from '../../api/api';
 import {
-  followActionCreator,
-  followProgressActionCreator,
-  setCurrentPageActionCreator,
+  follow,
+  setFollowProgress,
+  getUsers,
+  setCurrentPage,
   // setTotalUsersCountActionCreator,
-  setUsersActionCreator,
-  unFollowActionCreator,
+  setUsers,
+  unfollow,
 } from '../../redux/usersReducer';
 import Users from './Users';
 
@@ -20,26 +21,30 @@ class UsersContainer extends React.Component {
     //       withCredentials: true,
     //     }
     //   )
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        // this.props.setTotalUsersCount(response.data.totalCount);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+
+    // usersAPI
+    //   .getUsers(this.props.currentPage, this.props.pageSize)
+    //   .then((response) => {
+    //     this.props.setUsers(response.data.items);
+    //     // this.props.setTotalUsersCount(response.data.totalCount);
+    //   });
   }
 
   onPageChanged = (currentPage) => {
     this.props.setCurrentPage(currentPage);
-    // axios
-    //   .get(
-    //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    usersAPI.getUsers(currentPage, this.props.pageSize).then((response) => {
-      this.props.setUsers(response.data.items);
-    });
+    this.props.getUsers(currentPage, this.props.pageSize);
+
+    // // axios
+    // //   .get(
+    // //     `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`,
+    // //     {
+    // //       withCredentials: true,
+    // //     }
+    // //   )
+    // usersAPI.getUsers(currentPage, this.props.pageSize).then((response) => {
+    //   this.props.setUsers(response.data.items);
+    // });
   };
 
   render() {
@@ -56,6 +61,7 @@ class UsersContainer extends React.Component {
         followProgress={this.props.followProgress}
       />
     );
+    debugger;
   }
 }
 
@@ -69,27 +75,11 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followActionCreator(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(unFollowActionCreator(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersActionCreator(users));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageActionCreator(currentPage));
-    },
-    setFollowProgress: (followProgress, userId) => {
-      dispatch(followProgressActionCreator(followProgress, userId));
-    },
-    // setTotalUsersCount: (totalCount) => {
-    //   dispatch(setTotalUsersCountActionCreator(totalCount));
-    // },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+  follow,
+  unfollow,
+  setUsers,
+  setCurrentPage,
+  setFollowProgress,
+  getUsers,
+})(UsersContainer);
