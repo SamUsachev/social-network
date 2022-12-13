@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 
 import style from './Dialogs.module.css';
 
@@ -31,6 +31,10 @@ const Dialogs = (props) => {
     let body = e.target.value;
     props.updateNeMessageBody(body);
   };
+
+  if (props.isAuth === false) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className={style.dialogs}>
