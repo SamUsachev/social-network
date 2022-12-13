@@ -7,6 +7,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import { NewsFeed, NewsFeedFunc } from './pages';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 
 function App(props) {
   return (
@@ -20,6 +21,7 @@ function App(props) {
               <Route path="/profile:userId" element={<ProfileContainer />} />
               <Route path="/messages" element={<DialogsContainer />} />
               <Route path="/users" element={<UsersContainer />} />
+              <Route path="/login" element={<Login />} />
               {/* <Route path="/news" element={<NewsFeed />} />
               <Route path="/newsFunc" element={<NewsFeedFunc />} /> */}
             </Routes>
