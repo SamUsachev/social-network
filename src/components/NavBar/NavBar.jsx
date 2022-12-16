@@ -6,8 +6,8 @@ function NavBar() {
     <nav className={style.nav}>
       <ul className={style.text}>
         <ol>
-          <NavLink to="profile">
-            <a className={style.but}>Profile</a>{' '}
+          <NavLink to="profile26995">
+            <a className={style.but}>Profile</a>
           </NavLink>
         </ol>
         <ol>

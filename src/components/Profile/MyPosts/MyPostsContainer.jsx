@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(action);
     },
     increseLike: (id) => {
-      console.log(id);
       dispatch(increseLikeByIdActionCreator(id));
     },
   };

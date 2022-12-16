@@ -43,6 +43,20 @@ export const usersAPI = {
   },
 };
 
+export const profileAPI = {
+  getProfile(userId) {
+    return axios.get(
+      `https://social-network.samuraijs.com/api/1.0/profile/${userId}`
+    );
+  },
+  getStatus(userId) {
+    return instance.get('profile/status/' + userId);
+  },
+  updateStatus(status) {
+    return instance.put('profile/status', { status: status }); //properties, сервак документация
+  },
+};
+
 export const authAPI = {
   me() {
     return axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
