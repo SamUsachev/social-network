@@ -9,8 +9,8 @@ const FOLLOW_PROGRESS = 'FOLLOW_PROGRESS';
 
 let initialState = {
   users: [],
-  pageSize: 5,
-  totalUsersCount: 150,
+  pageSize: 10,
+  totalUsersCount: 250,
   currentPage: 1,
   followProgress: [],
 };
@@ -100,7 +100,7 @@ export const follow = (userId) => {
 
       .then((response) => {
         dispatch(setFollowProgress(false, userId));
-        if (response.data.resultCode == 0) {
+        if (response.data.resultCode === 0) {
           dispatch(followSuccess(userId));
         }
       });

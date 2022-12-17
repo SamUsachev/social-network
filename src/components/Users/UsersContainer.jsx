@@ -61,7 +61,6 @@ class UsersContainer extends React.Component {
         followProgress={this.props.followProgress}
       />
     );
-    debugger;
   }
 }
 
